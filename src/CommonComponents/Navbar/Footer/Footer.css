@@ -36,3 +36,21 @@ h1{
     margin-left: 28px;
     cursor: pointer;
 }
+@media  screen and (max-width:768px) {
+    .footerDiv{
+        font-size: 2px;
+        border-bottom: none;
+    
+    }
+    .footer{
+        font-size: 5px;}
+    .footerList{font-size: 5px;
+    display: grid;
+grid-template-columns: repeat(2,1fr);}
+    .span span{
+        display: block;
+        font-size: smaller;
+     
+    }
+    
+}
