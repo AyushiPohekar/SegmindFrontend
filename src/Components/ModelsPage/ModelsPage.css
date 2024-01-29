@@ -122,3 +122,80 @@
   border-radius: 15px;
   margin-top: 10px;
 }
+@media screen and (max-width: 960px) {
+  body{
+    text-align: center;
+  }
+  .Home{display: block;
+  }
+  .HomeContent{
+    width: 80%;
+   
+    display: block;
+    
+    text-align: center;
+  }
+  .HomeContent2 img{
+    margin-top: 20px;
+   width: 70%;
+   left:40%;
+    display: grid;
+    place-items: center;
+  }
+  .image{
+    margin:5px;
+    display: block;
+    
+  }
+}
+@media screen and (max-width: 768px) {
+   .imgTitle {
+    text-align: center;
+   }
+   .Home{
+    margin-top: 50px;
+   }
+   .HomeContent2 img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+  .imgTitle .imgdiv {
+    text-align: center;
+    margin:5px;
+    
+    grid-template-columns: repeat(2,1fr);
+    place-items: center;
+    
+  }
+
+  .cardDiv {
+   
+  
+   grid-template-columns: repeat(1,1fr);
+  }
+  
+
+ 
+}
+@media screen and (max-width: 468px) {
+  .imgTitle {
+   text-align: center;
+  }
+ .imgTitle .imgdiv {
+   text-align: center;
+   margin:5px;
+   
+   grid-template-columns: repeat(1,1fr);
+   place-items: center;
+   
+ }
+  .cardDiv {
+    text-align: center;
+   display: block;
+   
+ }
+ .card{
+  display: block;
+ }
+}
