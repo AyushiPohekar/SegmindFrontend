@@ -82,3 +82,33 @@
     height: 410px;
     
   }
+@media screen and (max-width:768px){
+    .imgDiv{
+      display: block;
+      text-align: center;
+    }
+    .imgdiv{
+      grid-template-columns: repeat(3,1fr);
+    }
+    .imgdiv img {
+      width: 200px;
+      height: 150px;
+      cursor: pointer;
+      border-radius: 20px;
+      grid-template-columns: repeat(2,1fr);
+    }
+    .imgdiv img:hover{
+      width: 210px;
+      height: 160px;
+      
+    }
+    
+  }
+  @media screen and (max-width:568px){
+    .imgDiv img{
+      width: fit-content;
+    }
+    .imgdiv {
+      grid-template-columns: repeat(2,1fr);
+    }
+  }
