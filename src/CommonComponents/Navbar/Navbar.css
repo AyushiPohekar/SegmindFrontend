@@ -38,3 +38,16 @@ h1{
     
    
 }
+@media  screen and (max-width:768px) {
+    .NavbarDiv{display: block;position: sticky;
+    width: 200px;}
+    .Navbardiv2{display: block;
+    text-align: left;}
+    .Navbardiv2 h1:hover{
+        opacity: 0.9;
+        
+     }
+
+    
+}
+
