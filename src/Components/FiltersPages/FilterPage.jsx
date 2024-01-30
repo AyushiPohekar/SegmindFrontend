@@ -9,6 +9,8 @@ const FilterPage = () => {
   const navigate = useNavigate();
   const [models, setModels] = useState(location.state.models);
   const [filterdata, setFilterdata] = useState([]);
+  const [activeButton, setActiveButton] = useState("");
+
   function getDetails(modelSlug) {
     return axios
       .get(`http://localhost:8000/wrapper/findOneModel?name=${modelSlug}`)
@@ -51,10 +53,12 @@ const FilterPage = () => {
   const handleOnClick = (element) => {
     navigate(`/models/type`, { state: { elemert: element } });
   };
-  const decideType = (desiredType) => {
+  const decideType = (desiredType, name) => {
+    console.log(name)
     navigate(`/${desiredType}`, {
       state: { models: models, desiredType: desiredType },
     });
+    setActiveButton(name);
   };
   return (
     <>
@@ -68,26 +72,34 @@ const FilterPage = () => {
           <div className="titlebutton">
             <div>
               <button
-                className="filterbtns"
-                onClick={() => decideType("textToImage")}
+                className={`filterbtns ${
+                  activeButton === "textToImage" ? "active" : ""
+                }`}
+                onClick={() => decideType("textToImage", "textToImage")}
               >
                 Text To Image
               </button>
               <button
-               className="filterbtns"
-                onClick={() => decideType("imageToImage")}
+                className={`filterbtns ${
+                  activeButton === "imageToImage" ? "active" : ""
+                }`}
+                onClick={() => decideType("imageToImage", "imageToImage")}
               >
                 Image to Image
               </button>
               <button
-              className="filterbtns"
-                onClick={()=>decideType("imageToImage")}
+                className={`filterbtns ${
+                  activeButton === "UtilityFunctions" ? "active" : ""
+                }`}
+                onClick={() => decideType("imageToImage", "UtilityFunctions")}
               >
                 Utility Functions
               </button>
               <button
-              className="filterbtns"
-                onClick={()=>decideType("imageToImage")}
+                className={`filterbtns ${
+                  activeButton === "Controlnets" ? "active" : ""
+                }`}
+                onClick={() => decideType("imageToImage", "Controlnets")}
               >
                 Controlnets
               </button>

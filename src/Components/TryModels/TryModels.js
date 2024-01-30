@@ -9,6 +9,10 @@ const TryModels = () => {
   const [models, setModels] = useState([]);
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [activeButton, setActiveButton] = useState("");
+
+
+
 
   const getdata = async () => {
     try {
@@ -80,8 +84,9 @@ const TryModels = () => {
     return 0;
   });
 
-  const decideType=(desiredType)=>{
+  const decideType=(desiredType,name)=>{
     navigate(`/${desiredType}`,{state:{models:models,desiredType:desiredType}})
+    setActiveButton(name);
   }
   
 
@@ -96,26 +101,26 @@ const TryModels = () => {
         <div className="titlebutton">
           <div>
             <button
-             className="filterbtns"
-              onClick={()=>decideType("textToImage")}
+             className={`filterbtns ${activeButton === "textToImage" ? "active" : ""}`}
+              onClick={()=>decideType("textToImage","textToImage")}
             >
               Text To Image
             </button>
             <button
-             className="filterbtns"
-              onClick={()=>decideType("imageToImage")}
+               className={`filterbtns ${activeButton === "imageToImage" ? "active" : ""}`}
+              onClick={()=>decideType("imageToImage","imageToImage")}
             >
               Image to Image
             </button>
             <button
-             className="filterbtns"
-              onClick={()=>decideType("imageToImage")}
+               className={`filterbtns ${activeButton === " UtilityFunctions" ? "active" : ""}`}
+              onClick={()=>decideType("imageToImage","UtilityFunctions")}
             >
               Utility Functions
             </button>
             <button
-            className="filterbtns"
-              onClick={()=>decideType("imageToImage")}
+             className={`filterbtns ${activeButton === "Controlnets" ? "active" : ""}`}
+              onClick={()=>decideType("imageToImage","Controlnets")}
             >
               Controlnets
             </button>
