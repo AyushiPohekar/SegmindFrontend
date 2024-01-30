@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Col, InputNumber, Row, Slider, Space } from "antd";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import axios from "axios";
-import "./Aimodels.css"
+import "./Aimodels.css";
 
 const TexttoImage = () => {
   const navigate = useNavigate();
@@ -107,155 +107,164 @@ const TexttoImage = () => {
   };
 
   return (
-    <div className="ComponentWrapper">
-      <div className="left">
-        <div className="promtdiv">
-          <h3>Prompt</h3>
-          <textarea
-            name="prompt"
-            className="prompttextarea"
-            rows={5}
-            placeholder="Enter prompt here"
-            value={prompt}
-            onChange={handleInputChange}
-            // onChange={handleChange}
-          ></textarea>
-          <h3 className="Advanced">
-            Advanced
-            {!advanced ? (
-              <MdKeyboardArrowDown
-                onClick={() => setAdvancedtrue(true)}
-                className="arrow"
-              />
-            ) : (
-              <MdKeyboardArrowUp
-                onClick={() => setAdvancedtrue(false)}
-                className="arrow"
-              />
+    <div>
+      <div className="ComponentWrapper">
+        <div className="left">
+          <div className="promtdiv">
+            <h3>Prompt</h3>
+            <textarea
+              name="prompt"
+              className="prompttextarea"
+              rows={5}
+              placeholder="Enter prompt here"
+              value={prompt}
+              onChange={handleInputChange}
+              // onChange={handleChange}
+            ></textarea>
+            <h3 className="Advanced">
+              Advanced
+              {!advanced ? (
+                <MdKeyboardArrowDown
+                  onClick={() => setAdvancedtrue(true)}
+                  className="arrow"
+                />
+              ) : (
+                <MdKeyboardArrowUp
+                  onClick={() => setAdvancedtrue(false)}
+                  className="arrow"
+                />
+              )}
+            </h3>
+
+            {advanced && (
+              <>
+                <div className="innerdiv">
+                  <h3>Seed</h3>
+                  <input
+                    onChange={handleInputChange}
+                    type="number"
+                    value={seed}
+                    name="seed"
+                    className="promptinput"
+                  />
+                </div>
+                <div className="checkboxdiv">
+                  <input type="checkbox" />
+                  <span>Randomize seed</span>
+                </div>
+
+                <div className="innerdiv">
+                  <h3>Negative Prompt</h3>
+                  <input
+                    onChange={handleInputChange}
+                    type="text"
+                    value={negative_prompt}
+                    name="negative_prompt"
+                    className="promptinput"
+                  />
+                </div>
+                <div className="innerdiv">
+                  <h3>Scheduler</h3>
+                  <select
+                    onChange={handleInputChange}
+                    value={scheduler}
+                    name="scheduler"
+                    className="promptinput"
+                  >
+                    <option value="DDIM">DDIM</option>
+                    <option value="DPM Multi">DPM Multi</option>
+                    <option value="DPM Single">DPM Single</option>
+                    <option value="Euler a">Euler a</option>
+                    <option value="DPM2 a Karras">DPM2 a Karras</option>
+                    <option value="DDM2 Karas">DDM2 Karas</option>
+                    <option value="LMS">LMS</option>
+                  </select>
+                </div>
+                <div className="innerdiv">
+                  <h3>Steps</h3>
+                  <Row>
+                    <Col span={12}>
+                      <Slider
+                        min={1}
+                        max={20}
+                        onChange={(value) =>
+                          handleInputChange({
+                            target: { name: "num_inference_steps", value },
+                          })
+                        }
+                        value={
+                          typeof num_inference_steps === "number"
+                            ? num_inference_steps
+                            : 1
+                        }
+                      />
+                    </Col>
+                    <Col span={4}>
+                      <InputNumber
+                        min={1}
+                        max={20}
+                        style={{ margin: "0 16px" }}
+                        value={
+                          typeof num_inference_steps === "number"
+                            ? num_inference_steps
+                            : 1
+                        }
+                        name="num_inference_steps"
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                  </Row>
+                </div>
+
+                <div className="innerdiv">
+                  <h3>Guidance Scale</h3>
+                  <Row>
+                    <Col span={12}>
+                      <Slider
+                        min={1}
+                        max={20}
+                        onChange={(value) =>
+                          handleInputChange({
+                            target: { name: "guidance_scale", value },
+                          })
+                        }
+                        value={
+                          typeof guidance_scale === "number"
+                            ? guidance_scale
+                            : 1
+                        }
+                      />
+                    </Col>
+                    <Col span={4}>
+                      <InputNumber
+                        min={1}
+                        max={20}
+                        style={{ margin: "0 16px" }}
+                        name="guidance_scale"
+                        value={
+                          typeof guidance_scale === "number"
+                            ? guidance_scale
+                            : 1
+                        }
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                  </Row>
+                </div>
+              </>
             )}
-          </h3>
-
-          {advanced && (
-            <>
-              <div className="innerdiv">
-                <h3>Seed</h3>
-                <input
-                  onChange={handleInputChange}
-                  type="number"
-                  value={seed}
-                  name="seed"
-                  className="promptinput"
-                />
-              </div>
-              <div className="checkboxdiv">
-                <input type="checkbox" />
-                <span>Randomize seed</span>
-              </div>
-
-              <div className="innerdiv">
-                <h3>Negative Prompt</h3>
-                <input
-                  onChange={handleInputChange}
-                  type="text"
-                  value={negative_prompt}
-                  name="negative_prompt"
-                  className="promptinput"
-                />
-              </div>
-              <div className="innerdiv">
-                <h3>Scheduler</h3>
-                <select
-                  onChange={handleInputChange}
-                  value={scheduler}
-                  name="scheduler"
-                  className="promptinput"
-                >
-                  <option value="DDIM">DDIM</option>
-                  <option value="DPM Multi">DPM Multi</option>
-                  <option value="DPM Single">DPM Single</option>
-                  <option value="Euler a">Euler a</option>
-                  <option value="DPM2 a Karras">DPM2 a Karras</option>
-                  <option value="DDM2 Karas">DDM2 Karas</option>
-                  <option value="LMS">LMS</option>
-                </select>
-              </div>
-              <div className="innerdiv">
-                <h3>Steps</h3>
-                <Row>
-                  <Col span={12}>
-                    <Slider
-                      min={1}
-                      max={20}
-                      onChange={(value) =>
-                        handleInputChange({
-                          target: { name: "num_inference_steps", value },
-                        })
-                      }
-                      value={
-                        typeof num_inference_steps === "number"
-                          ? num_inference_steps
-                          : 1
-                      }
-                    />
-                  </Col>
-                  <Col span={4}>
-                    <InputNumber
-                      min={1}
-                      max={20}
-                      style={{ margin: "0 16px" }}
-                      value={
-                        typeof num_inference_steps === "number"
-                          ? num_inference_steps
-                          : 1
-                      }
-                      name="num_inference_steps"
-                      onChange={handleInputChange}
-                    />
-                  </Col>
-                </Row>
-              </div>
-
-              <div className="innerdiv">
-                <h3>Guidance Scale</h3>
-                <Row>
-                  <Col span={12}>
-                    <Slider
-                      min={1}
-                      max={20}
-                      onChange={(value) =>
-                        handleInputChange({
-                          target: { name: "guidance_scale", value },
-                        })
-                      }
-                      value={
-                        typeof guidance_scale === "number" ? guidance_scale : 1
-                      }
-                    />
-                  </Col>
-                  <Col span={4}>
-                    <InputNumber
-                      min={1}
-                      max={20}
-                      style={{ margin: "0 16px" }}
-                      name="guidance_scale"
-                      value={
-                        typeof guidance_scale === "number" ? guidance_scale : 1
-                      }
-                      onChange={handleInputChange}
-                    />
-                  </Col>
-                </Row>
-              </div>
-            </>
-          )}
-          <button onClick={() => fetchData()} className="genratebtn">
-            Generate
-          </button>
+            <button onClick={() => fetchData()} className="genratebtn">
+              Generate
+            </button>
+          </div>
+        </div>
+        <div className="right">
+          <img src={image} />
         </div>
       </div>
-      <div className="right">
-        <img src={image} />
-      </div>
+     <div>
+      
+     </div>
     </div>
   );
 };
