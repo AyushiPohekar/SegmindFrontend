@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const FilterPage = () => {
-  const ControlnetsArray = ["controlnet-openpose"];
+  
   const location = useLocation();
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const [models, setModels] = useState(location.state.models);
   const [filterdata, setFilterdata] = useState([]);
-  const [activeButton, setActiveButton] = useState("");
+  const [activeButton, setActiveButton] = useState(location.state.name);
 
   function getDetails(modelSlug) {
     return axios
@@ -62,7 +62,7 @@ const FilterPage = () => {
   };
   return (
     <>
-      <div className="container">
+      <div className="container2">
         <div className="titleContent">
           <h1>Models</h1>
           <p>

@@ -4,8 +4,27 @@ import { Col, InputNumber, Row, Slider, Space } from "antd";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import axios from "axios";
 import "./Aimodels.css";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { message, Upload } from "antd";
 
-const TexttoImage = () => {
+const getBase64 = (img, callback) => {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => callback(reader.result));
+  reader.readAsDataURL(img);
+};
+const beforeUpload = (file) => {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+};
+
+const ImageToImage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,11 +43,13 @@ const TexttoImage = () => {
   const model = location?.state?.details?.model;
 
   const [advanced, setAdvancedtrue] = useState(false);
-  const [image, setImage] = useState(model?.default_image_output || "");
+  const [originalimg, setoriginalimg] = useState(
+    model?.default_image_output || ""
+  );
   const [prompt, setPrompt] = useState(
     model?.parameters?.prompt?.displayValue || ""
   );
-  const [seed, setSeed] = useState(model?.parameters?.seed?.displayValue || 0);
+  const [seed, setSeed] = useState(parseFloat(model?.parameters?.seed?.displayValue) || 0);
   const [negative_prompt, setnegative_prompt] = useState(
     model?.parameters?.negative_prompt?.displayValue || ""
   );
@@ -47,10 +68,14 @@ const TexttoImage = () => {
   const [control_scale, setcontrol_scale] = useState(
     parseFloat(model?.parameters?.control_scale?.displayValue) || -1
   );
+  const [controlnet_scale, setcontrolnet_scale] = useState(
+    parseFloat(model?.parameters?.controlnet_scale?.displayValue) || -1
+  );
 
   const [control_start, setcontrol_start] = useState(
-   parseFloat(model?.parameters?.control_start?.displayValue) || -1
+    parseFloat(model?.parameters?.control_start?.displayValue) || -1
   );
+  const [image, setimage] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -87,19 +112,55 @@ const TexttoImage = () => {
     }
   };
 
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState();
+  const handleChange = (info) => {
+    if (info.file.status === "uploading") {
+      setLoading(true);
+      return;
+    }
+    if (info.file.status === "done") {
+    
+      getBase64(info.file.originFileObj, (url) => {
+        setLoading(false);
+        setImageUrl(url);
+
+        setimage(info.file.originFileObj);
+      });
+    }
+  };
+  const uploadButton = (
+    <button
+      style={{
+        border: 0,
+        background: "none",
+      }}
+      type="button"
+    >
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </button>
+  );
+
   let modifiedData = {
     prompt,
     negative_prompt,
     scheduler,
     num_inference_steps,
     seed,
-    img_width: 1024,
-    img_height: 1024,
+    
     base64: false,
     samples: 1,
+    image,
+   
   };
 
-  // Check and add control_scale
   if (model?.parameters?.control_scale) {
     modifiedData = {
       ...modifiedData,
@@ -107,7 +168,6 @@ const TexttoImage = () => {
     };
   }
 
-  // Check and add control_end
   if (model?.parameters?.control_end) {
     modifiedData = {
       ...modifiedData,
@@ -115,7 +175,6 @@ const TexttoImage = () => {
     };
   }
 
-  // Check and add control_start
   if (model?.parameters?.control_start) {
     modifiedData = {
       ...modifiedData,
@@ -123,19 +182,71 @@ const TexttoImage = () => {
     };
   }
 
-  // Check and add guidance_scale
   if (model?.parameters?.guidance_scale) {
     modifiedData = {
       ...modifiedData,
       guidance_scale,
     };
   }
+  if (model?.parameters?.controlnet_scale) {
+    modifiedData = {
+      ...modifiedData,
+      controlnet_scale,
+    };
+  }
+
+  const fetchData = async () => {
+    let url;
+    const api_key = "SG_cdb02db099cb8b32";
+
+    url = `http://localhost:8000/wrapper/imageToImage?name=${model?.slug}`;
+
+    try {
+      const response = await axios.post(url, modifiedData, {
+        headers: {
+          "x-api-key": api_key,
+          "Content-Type": "application/json",
+        },
+        responseType: "arraybuffer",
+      });
+
+      const imageBlob = new Blob([response.data]);
+      const imageDataUrl = URL.createObjectURL(imageBlob);
+
+      setoriginalimg(imageDataUrl);
+    } catch (error) {
+      console.error("Error fetching image:", error);
+    }
+  };
 
   return (
     <div>
       <div className="ComponentWrapper">
         <div className="left">
           <div className="promtdiv">
+            <div className="imgtoimgdiv">
+              <Upload
+                name="avatar"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={false}
+                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                beforeUpload={beforeUpload}
+                onChange={handleChange}
+              >
+                {imageUrl ? (
+                  <img
+                    src={imageUrl}
+                    alt="avatar"
+                    style={{
+                      width: "100%",
+                    }}
+                  />
+                ) : (
+                  uploadButton
+                )}
+              </Upload>
+            </div>
             <h3>Prompt</h3>
             <textarea
               name="prompt"
@@ -325,7 +436,7 @@ const TexttoImage = () => {
                           <Slider
                             min={0}
                             max={1}
-                            step={0.01} 
+                            step={0.01}
                             onChange={(value) =>
                               handleInputChange({
                                 target: { name: "control_start", value },
@@ -365,7 +476,7 @@ const TexttoImage = () => {
                           <Slider
                             min={0}
                             max={1}
-                            step={0.01} 
+                            step={0.01}
                             onChange={(value) =>
                               handleInputChange({
                                 target: { name: "control_end", value },
@@ -392,13 +503,51 @@ const TexttoImage = () => {
                     </div>
                   </>
                 )}
+                {controlnet_scale> -1 && (
+                  <>
+                    <div className="innerdiv">
+                      <h3>Control Guidance end</h3>
+                      <Row>
+                        <Col span={12}>
+                          <Slider
+                            min={0}
+                            max={1}
+                            step={0.01}
+                            onChange={(value) =>
+                              handleInputChange({
+                                target: { name: "controlnet_scale", value },
+                              })
+                            }
+                            value={
+                              typeof controlnet_scale === "number" ? controlnet_scale : 0
+                            }
+                          />
+                        </Col>
+                        <Col span={4}>
+                          <InputNumber
+                            min={0}
+                            max={1}
+                            style={{ margin: "0 16px" }}
+                            name="controlnet_scale"
+                            value={
+                              typeof controlnet_scale === "number" ? controlnet_scale : 0
+                            }
+                            onChange={handleInputChange}
+                          />
+                        </Col>
+                      </Row>
+                    </div>
+                  </>
+                )}
               </>
             )}
-            <button className="genratebtn">Generate</button>
+            <button className="genratebtn" onClick={() => fetchData()}>
+              Generate
+            </button>
           </div>
         </div>
         <div className="right">
-          <img src={image} />
+          <img src={originalimg} />
         </div>
       </div>
       <div></div>
@@ -406,4 +555,4 @@ const TexttoImage = () => {
   );
 };
 
-export default TexttoImage;
+export default ImageToImage;
