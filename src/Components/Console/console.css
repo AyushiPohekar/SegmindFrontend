@@ -1,15 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;1,300&display=swap');
 .container{
     display: flex;
+    font-family: 'Poppins', sans-serif;
 }
 .content{
-    margin-top: 10px;
+    margin-top: 100px;
     width: 100%;
     padding-right: 20px;
     padding-left: 50px;
     border: 1px solid rgb(213, 210, 210);
 }
 .nav{
-    margin-top: 10px;
+    margin-top: 100px;
     width: 26%;
     height: 600px;
     border: 1px solid rgb(213, 210, 210);
@@ -27,7 +29,7 @@
     opacity: 0.5;
     color:purple
 }
-.nav .navList h3:active{
+.nav .navList Link:active{
     background-color: rgb(188, 155, 219);
 }
 .logout{
@@ -46,4 +48,79 @@
     border: 1px solid rgb(213, 210, 210);
     height: 130px;
     border-radius: 15px;
+}
+table{
+    margin-top: 12px;
+}
+@media  screen and (max-width:968px) {
+    .container{display: grid;
+        
+    }
+    .nav{
+        border:none;
+        border-bottom: 1 px solid rgb(213,210,210);
+    height:100px}
+    .navList{display: flex;
+    
+    }
+    .navList h3{
+        margin-left: 32px;
+
+    }
+    .content{
+        margin-top: 50px;
+    }
+    .logout{margin-top: 0;}
+    .s_card{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }
+    
+}
+@media screen and (max-width:768px){
+    .nav{height: 180px;}
+    .navList{display: grid;
+        
+        grid-template-columns: repeat(5,1fr);}
+        .navList h3{
+            margin-left: 62px;
+    
+        } 
+        
+           
+    .s_card{grid-template-columns: repeat(2,1fr);}
+    .cardL{
+        width: 300px;
+    }
+   
+   
+} 
+@media screen and (max-width:690px){
+    .content{text-align: center;
+    font-size: 12px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(1,1fr);
+}
+    .navList{display: grid;
+        grid-template-columns: repeat(4,1fr);}
+    .s_card{
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+@media screen and (max-width:530px){
+    
+    .content{
+        margin-top: 180px;text-align: center;
+    font-size: 12px;
+    text-align: center;
+    
+}
+
+    .navList{display: grid;
+        grid-template-columns: repeat(3,1fr);}
+    .s_card{
+        grid-template-columns: repeat(1,1fr);
+    }
 }

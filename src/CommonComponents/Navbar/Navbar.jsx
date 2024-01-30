@@ -27,8 +27,8 @@ const Navbar = () => {
         <div className="dropdown" onClick={handlebtn}>
           {toggle ? (
             <div className="dropdowndiv">
-              <h2 onClick={() => navigate("/console/key")}>Console</h2>
-              <h2 onClick={() => navigate("/models")}>Sign Out</h2>
+              <h2 onClick={() => navigate("/console/key")} style={{cursor:"pointer"}}>Console</h2>
+              <h2 onClick={() => navigate("/models")} style={{cursor:"pointer"}}>Sign Out</h2>
             </div>
           ) : (
             ""
