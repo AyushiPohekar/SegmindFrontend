@@ -12,6 +12,7 @@
     justify-content: space-between;
     background-color: rgb(238, 233, 238);
     font-size: 12px;
+    overflow: hidden;
 }
 .Navbardiv2{
     display: flex;
@@ -29,6 +30,13 @@
    opacity: 0.5;
    
 }
+.dowpdown{
+    display: block;
+    cursor: pointer;
+    
+}
+.dropdowndiv{display: block;}
+
 .Navbardiv2 span{
    margin-bottom: 15px;
 }
@@ -50,4 +58,3 @@ h1{
 
     
 }
-
