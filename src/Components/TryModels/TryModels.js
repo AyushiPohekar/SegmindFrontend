@@ -5,17 +5,61 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const TryModels = () => {
   const [data, setData] = useState([]);
+  const [texttoimagearray, settexttoImageArray] = useState([]);
+  const [models, setModels] = useState([]);
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
 
-  const getData = async () => {
-    return await axios
-      .get("http://localhost:8000/wrapper/findAllModel")
-      .then((res) => res);
+  const getdata = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/wrapper/findAllModel`);
+
+      setData(res.data.models);
+      setModels(res.data.models);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
   useEffect(() => {
-    getData().then((data) => setData(data.data.models));
-  });
+    getdata();
+  }, []);
+
+
+  function getDetails(modelSlug) {
+    return axios
+      .get(`http://localhost:8000/wrapper/findOneModel?name=${modelSlug}`)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error(
+          `Error fetching details for model ${modelSlug}: ${error}`
+        );
+        throw error;
+      });
+  }
+  const fetchData = async (desiredType) => {
+    
+    const filteredModels = [];
+
+    for (const model of models) {
+      try {
+        const details = await getDetails(model.slug);
+
+        model.details = details.model;
+
+        if (model.details && model.details.type === desiredType) {
+          filteredModels.push(model);
+        }
+      } catch (error) {
+        console.error(
+          `Error fetching details for model ${model.slug}: ${error}`
+        );
+      }
+    }
+
+    setData(filteredModels);
+  };
+ 
+
   const handleOnClick = (element) => {
     navigate(`/models/type`, { state: { elemert: element } });
   };
@@ -36,6 +80,11 @@ const TryModels = () => {
     return 0;
   });
 
+  const decideType=(desiredType)=>{
+    navigate(`/${desiredType}`,{state:{models:models,desiredType:desiredType}})
+  }
+  
+
   return (
     <div className="container">
       <div className="titleContent">
@@ -47,53 +96,26 @@ const TryModels = () => {
         <div className="titlebutton">
           <div>
             <button
-              style={{
-                background: "white",
-                color: "purple",
-                border: "1px solid purple",
-                borderRadius: "15px",
-                height: "25px",
-                cursor: "pointer",
-              }}
+             className="filterbtns"
+              onClick={()=>decideType("textToImage")}
             >
               Text To Image
             </button>
             <button
-              style={{
-                marginLeft: "30px",
-                background: "white",
-                color: "purple",
-                border: "1px solid purple",
-                borderRadius: "15px",
-                height: "25px",
-                cursor: "pointer",
-              }}
+             className="filterbtns"
+              onClick={()=>decideType("imageToImage")}
             >
               Image to Image
             </button>
             <button
-              style={{
-                marginLeft: "30px",
-                background: "white",
-                color: "purple",
-                border: "1px solid purple",
-                borderRadius: "15px",
-                height: "25px",
-                cursor: "pointer",
-              }}
+             className="filterbtns"
+              onClick={()=>decideType("imageToImage")}
             >
               Utility Functions
             </button>
             <button
-              style={{
-                marginLeft: "30px",
-                background: "white",
-                color: "purple",
-                border: "1px solid purple",
-                borderRadius: "15px",
-                height: "25px",
-                cursor: "pointer",
-              }}
+            className="filterbtns"
+              onClick={()=>decideType("imageToImage")}
             >
               Controlnets
             </button>
@@ -109,22 +131,25 @@ const TryModels = () => {
         </div>
       </div>
       <div className="imgDiv">
-        {data.slice(0, 2).filter((eq) => {
-              if (query === "") {
-                return eq;
-              } else if (eq.title.toLowerCase().includes(query.toLowerCase())) {
-                return eq;
-              }
-            }).map((element) => {
-          return (
-            <div>
-              <img
-                src={element.default_image_output}
-                onClick={() => handleOnClick(element)}
-              />
-            </div>
-          );
-        })}
+        {data
+          .slice(0, 2)
+          .filter((eq) => {
+            if (query === "") {
+              return eq;
+            } else if (eq.title.toLowerCase().includes(query.toLowerCase())) {
+              return eq;
+            }
+          })
+          .map((element) => {
+            return (
+              <div>
+                <img
+                  src={element.default_image_output}
+                  onClick={() => handleOnClick(element)}
+                />
+              </div>
+            );
+          })}
       </div>
       <div style={{ marginTop: "20px" }}>
         <div className="imgdiv">

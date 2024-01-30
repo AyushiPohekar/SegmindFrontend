@@ -9,6 +9,7 @@ import TryModels from "./Components/TryModels/TryModels";
 import Type from "./Components/Type/Type";
 import TexttoImage from "./Components/Type/TexttoImage";
 import ImageToImage from "./Components/Type/ImageToImage";
+import FilterPage from "./Components/FiltersPages/FilterPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/models/type" element={<Type />} />
         <Route path="/models/texttoImage/:name" element={<TexttoImage/>} />
         <Route path="/models/imageToImage/:name" element={<ImageToImage />} />
+        <Route path="/:desiredType" element={<FilterPage />} />
          
      
         </Routes>
