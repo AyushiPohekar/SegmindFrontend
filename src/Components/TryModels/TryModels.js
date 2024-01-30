@@ -8,9 +8,7 @@ const TryModels = () => {
   const navigate = useNavigate();
   const getData = async () => {
     return await axios
-      .get(
-        "http://localhost:8000/wrapper/findAllModel"
-      )
+      .get("http://localhost:8000/wrapper/findAllModel")
       .then((res) => res);
   };
   useEffect(() => {
@@ -19,6 +17,23 @@ const TryModels = () => {
   const handleOnClick = (element) => {
     navigate(`/models/type`, { state: { elemert: element } });
   };
+
+  const desiredOrder = ["Segmind-Vega", "Segmind-VegaRT"];
+
+  data?.sort((a, b) => {
+    const indexA = desiredOrder.indexOf(a.title);
+    const indexB = desiredOrder.indexOf(b.title);
+
+    if (indexA !== -1 && indexB !== -1) {
+      return indexA - indexB;
+    }
+
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
+
+    return 0;
+  });
+
   return (
     <div className="container">
       <div className="titleContent">
@@ -91,23 +106,20 @@ const TryModels = () => {
         </div>
       </div>
       <div className="imgDiv">
-        <div>
-          <img
-            src="https://segmind-sd-models.s3.amazonaws.com/outputs/segmind-vega.png"
-            alt="segemnd-vega"
-          />
-        </div>
-        <div>
-          <img
-            src="https://segmind-sd-models.s3.amazonaws.com/outputs/ssd-vega-rt.png"
-            alt="segmend-vega2"
-            style={{ marginRight: "20px", marginLeft: "30px" }}
-          />
-        </div>
+        {data.slice(0, 2).map((element) => {
+          return (
+            <div>
+              <img
+                src={element.default_image_output}
+                onClick={() => handleOnClick(element)}
+              />
+            </div>
+          );
+        })}
       </div>
       <div style={{ marginTop: "20px" }}>
         <div className="imgdiv">
-          {data.map((element) => {
+          {data.slice(2).map((element) => {
             return (
               <div style={{ marginTop: "15px" }}>
                 <img

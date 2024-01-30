@@ -27,12 +27,13 @@
     display: flex;
     margin-left: 60px;
     margin-top: 60px;
-
+  gap: 1rem;
 }
 .imgDiv img{
-    width: 630px;
-    height: 600px;
+    width: 100%;
+    height: 100%;
     border-radius: 15px;
+    cursor: pointer;
 }
 .cardDiv{
     display: grid;
@@ -80,6 +81,11 @@
   .imgdiv img:hover{
     width: 290px;
     height: 410px;
+    
+  }
+  .imgDiv img:hover{
+    width: 98%;
+    height: 101%;
     
   }
 @media screen and (max-width:768px){

@@ -15,6 +15,12 @@ const ModelsPage = () => {
   const [data, setData] = useState([]);
 
   const navigate = useNavigate();
+
+
+
+
+
+
   const getData = async () => {
     return await axios
       .get(
@@ -25,10 +31,12 @@ const ModelsPage = () => {
   useEffect(() => {
     getData().then((data) =>setData(data.data.models));
   });
-  //changemade
+ 
   const handleOnClick = (element) => {
     navigate(`/models/type`,{state:{elemert:element}})
   };
+  
+  
   return (
     <div className="ModelsPageDiv" style={{ marginTop: "100px" }}>
       <div className="Home">
@@ -41,7 +49,7 @@ const ModelsPage = () => {
             <strong>zero setup required</strong>
           </p>
           <br />
-          {/* changemade */}
+       
           <button onClick={() => navigate("/models")}>
             Try Models <FaArrowRight style={{ marginTop: "2px" }} />
           </button>
