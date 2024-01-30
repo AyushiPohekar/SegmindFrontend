@@ -15,20 +15,20 @@ const ModelsPage = () => {
   const [data, setData] = useState([]);
 
   const navigate = useNavigate();
+
   const getData = async () => {
     return await axios
-      .get(
-        "http://localhost:8000/wrapper/findAllModel"
-      )
+      .get("http://localhost:8000/wrapper/findAllModel")
       .then((res) => res);
   };
   useEffect(() => {
-    getData().then((data) =>setData(data.data.models));
+    getData().then((data) => setData(data.data.models));
   });
-  //changemade
+
   const handleOnClick = (element) => {
-    navigate(`/models/type`,{state:{elemert:element}})
+    navigate(`/models/type`, { state: { elemert: element } });
   };
+
   return (
     <div className="ModelsPageDiv" style={{ marginTop: "100px" }}>
       <div className="Home">
@@ -41,7 +41,7 @@ const ModelsPage = () => {
             <strong>zero setup required</strong>
           </p>
           <br />
-          {/* changemade */}
+
           <button onClick={() => navigate("/models")}>
             Try Models <FaArrowRight style={{ marginTop: "2px" }} />
           </button>
@@ -68,7 +68,11 @@ const ModelsPage = () => {
         <div className="imgdiv">
           {data.slice(0, 4).map((element, index) => (
             <div key={index} className="modelImage">
-              <img src={element.default_image_output} alt={`img${index + 1}`} onClick={()=>handleOnClick(element)} />
+              <img
+                src={element.default_image_output}
+                alt={`img${index + 1}`}
+                onClick={() => handleOnClick(element)}
+              />
             </div>
           ))}
           {/* <div>
@@ -92,7 +96,7 @@ const ModelsPage = () => {
           textDecoration: "underLine",
           cursor: "pointer",
         }}
-        onClick={()=>navigate("/models")}
+        onClick={() => navigate("/models")}
       >
         See All Models
       </p>
