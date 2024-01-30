@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const TryModels = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+
   const getData = async () => {
     return await axios
       .get("http://localhost:8000/wrapper/findAllModel")
@@ -98,6 +100,7 @@ const TryModels = () => {
           </div>
           <div>
             <input
+              onChange={(event) => setQuery(event.target.value)}
               placeholder="Controllenet"
               className="input"
               style={{ marginRight: "30px", width: "230px" }}
@@ -106,7 +109,13 @@ const TryModels = () => {
         </div>
       </div>
       <div className="imgDiv">
-        {data.slice(0, 2).map((element) => {
+        {data.slice(0, 2).filter((eq) => {
+              if (query === "") {
+                return eq;
+              } else if (eq.title.toLowerCase().includes(query.toLowerCase())) {
+                return eq;
+              }
+            }).map((element) => {
           return (
             <div>
               <img
@@ -119,16 +128,25 @@ const TryModels = () => {
       </div>
       <div style={{ marginTop: "20px" }}>
         <div className="imgdiv">
-          {data.slice(2).map((element) => {
-            return (
-              <div style={{ marginTop: "15px" }}>
-                <img
-                  src={element.default_image_output}
-                  onClick={() => handleOnClick(element)}
-                />
-              </div>
-            );
-          })}
+          {data
+            .slice(2)
+            .filter((eq) => {
+              if (query === "") {
+                return eq;
+              } else if (eq.title.toLowerCase().includes(query.toLowerCase())) {
+                return eq;
+              }
+            })
+            .map((element) => {
+              return (
+                <div style={{ marginTop: "15px" }}>
+                  <img
+                    src={element.default_image_output}
+                    onClick={() => handleOnClick(element)}
+                  />
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>

@@ -108,6 +108,9 @@
       height: 160px;
       
     }
+    .titlebutton{
+      flex-direction: column-reverse;
+    }
     
   }
   @media screen and (max-width:568px){
@@ -117,4 +120,5 @@
     .imgdiv {
       grid-template-columns: repeat(2,1fr);
     }
+   
   }
