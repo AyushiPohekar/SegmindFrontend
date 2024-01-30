@@ -91,7 +91,7 @@ const TryModels = () => {
   
 
   return (
-    <div className="container">
+    <div className="container2">
       <div className="titleContent">
         <h1>Models</h1>
         <p>
