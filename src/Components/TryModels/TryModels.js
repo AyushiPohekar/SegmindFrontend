@@ -140,8 +140,7 @@ const TryModels = () => {
         </div>
       </div>
       <div className="imgDiv">
-        {data
-          .slice(0, 2)
+        {data?.slice(0, 2)
           .filter((eq) => {
             if (query === "") {
               return eq;
@@ -162,8 +161,7 @@ const TryModels = () => {
       </div>
       <div style={{ marginTop: "20px" }}>
         <div className="imgdiv">
-          {data
-            .slice(2)
+          {data?.slice(2)
             .filter((eq) => {
               if (query === "") {
                 return eq;
