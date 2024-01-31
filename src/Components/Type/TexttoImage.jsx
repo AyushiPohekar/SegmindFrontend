@@ -8,6 +8,7 @@ import { useAuth } from "../Context/auth";
 
 const TexttoImage = () => {
   const [auth, setAuth] = useAuth();
+  console.log(auth)
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -83,7 +84,7 @@ const TexttoImage = () => {
     samples: 1,
   };
   const fetchData = async () => {
-    if(!auth?.user){
+    if(!auth?.name){
       navigate("/login")
     }else{
       let url;

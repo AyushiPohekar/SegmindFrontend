@@ -59,10 +59,10 @@ const FilterPage = () => {
     ) {
       fetchData();
     } else if (location.state.desiredType == "UtilityFunctions") {
-      setFilterdata(location.state.models?.slice(-5));
+      setFilterdata(location.state.models?.slice(-4));
     } else if (location.state.desiredType == "Controlnets") {
-      const controlnetsModels = location.state.models?.slice(0, -5);
-      setFilterdata(controlnetsModels?.slice(-6));
+      const controlnetsModels = location.state.models?.slice(0, -4);
+      setFilterdata(controlnetsModels?.slice(-3));
     }
   }, [location.state.desiredType]);
   const handleOnClick = (element) => {
