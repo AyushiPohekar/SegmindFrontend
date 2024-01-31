@@ -43,6 +43,13 @@
   gap: 10px;
   margin-left: 60px;
   margin-top: 60px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); 
+}
+.imgDiv img:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
+
+  transform: translateY(-5px);
 }
 .imgDiv img {
   width: 630px;
