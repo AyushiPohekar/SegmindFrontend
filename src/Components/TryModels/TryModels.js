@@ -14,7 +14,7 @@ const TryModels = () => {
   const getdata = async () => {
     try {
       const res = await axios.get(`http://localhost:8000/wrapper/findAllModel`);
-   
+
       setData(res.data);
       setModels(res.data);
     } catch (error) {
@@ -23,7 +23,7 @@ const TryModels = () => {
   };
   useEffect(() => {
     getdata();
-  },[]);
+  }, []);
 
   function getDetails(modelSlug) {
     return axios
@@ -36,7 +36,6 @@ const TryModels = () => {
         throw error;
       });
   }
- 
 
   const handleOnClick = (element) => {
     navigate(`/models/type`, { state: { elemert: element } });
@@ -90,7 +89,7 @@ const TryModels = () => {
               }`}
               onClick={() => decideType("imageToImage", "imageToImage")}
             >
-              Image to Image
+              Image to Image to
             </button>
             <button
               className={`filterbtns ${
@@ -120,7 +119,8 @@ const TryModels = () => {
         </div>
       </div>
       <div className="imgDiv">
-        {data?.slice(0, 2)
+        {data
+          ?.slice(0, 2)
           .filter((eq) => {
             if (query === "") {
               return eq;
@@ -141,7 +141,8 @@ const TryModels = () => {
       </div>
       <div style={{ marginTop: "20px" }}>
         <div className="imgdiv">
-          {data?.slice(2)
+          {data
+            ?.slice(2)
             .filter((eq) => {
               if (query === "") {
                 return eq;
