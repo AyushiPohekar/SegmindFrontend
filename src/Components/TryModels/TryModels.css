@@ -1,93 +1,88 @@
-.container2{
+.container2 {
   margin-top: 100px;
   margin-left: 80px;
   margin-right: 80px;
 }
-.titleContent{
+.titleContent {
   margin-left: 60px;
-
 }
-.titlebutton{
-
+.titlebutton {
   display: flex;
   justify-content: space-between;
 }
-.titlebtninnerdiv{
+.titlebtninnerdiv {
   display: flex;
   gap: 0.5rem;
 }
-.filterbtns{
-  border:1px solid rgb(25, 118, 210);
+.filterbtns {
+  border: 1px solid rgb(25, 118, 210);
   color: rgb(25, 118, 210);
   background-color: white;
   border-radius: 16px;
   padding: 0.5rem 1rem;
 }
-.active{
+.active {
   color: white;
   background-color: rgb(25, 118, 210);
   padding: 0.5rem 1rem;
 }
-.input{
-  /* border: 1px solid rgb(95, 93, 93); */
-  /* border-radius: 15px; */
+.input {
+ 
   height: 30px;
   margin-right: 40px;
   border-radius: 1.25rem;
   border: 1px solid #e5e7eb;
   background: #fff;
-  box-shadow: inset 0 4px 4px 0 rgba(0,0,0,.25);
- padding: 0.3rem;
+  box-shadow: inset 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  padding: 0.3rem;
 }
-.imgDiv{
+.imgDiv {
   display: flex;
   flex-direction: row;
   row-gap: 10px;
-  gap:10px;
+  gap: 10px;
   margin-left: 60px;
   margin-top: 60px;
-
 }
-.imgDiv img{
+.imgDiv img {
   width: 630px;
   height: 600px;
   border-radius: 15px;
 }
-.cardDiv{
+.cardDiv {
   display: grid;
   place-items: center;
   justify-content: space-around;
-  grid-template-columns: repeat(2,1fr);
-  gap:10px;
-  margin-left:500px;
-  margin-right:500px
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-left: 500px;
+  margin-right: 500px;
 }
-.card{
+.card {
   border: 1px solid black;
   width: 400px;
-  border:none;
+  border: none;
   height: 250px;
   border-radius: 15px;
   background-color: white;
   padding-left: 20px;
-  box-shadow: -8px 4px 28px 0px rgba(157,147,147,0.75);
--webkit-box-shadow: -8px 4px 28px 0px rgba(157,147,147,0.75);
--moz-box-shadow: -8px 4px 28px 0px rgba(157,147,147,0.75);
+  box-shadow: -8px 4px 28px 0px rgba(157, 147, 147, 0.75);
+  -webkit-box-shadow: -8px 4px 28px 0px rgba(157, 147, 147, 0.75);
+  -moz-box-shadow: -8px 4px 28px 0px rgba(157, 147, 147, 0.75);
 }
-.card:hover{
-  box-shadow: -1px -3px 30px 0px rgba(224,88,204,0.84);
--webkit-box-shadow: -1px -3px 30px 0px rgba(224,88,204,0.84);
--moz-box-shadow: -1px -3px 30px 0px rgba(224,88,204,0.84);
+.card:hover {
+  box-shadow: -1px -3px 30px 0px rgba(224, 88, 204, 0.84);
+  -webkit-box-shadow: -1px -3px 30px 0px rgba(224, 88, 204, 0.84);
+  -moz-box-shadow: -1px -3px 30px 0px rgba(224, 88, 204, 0.84);
 }
 .imgdiv {
   width: 100%;
   margin-left: 30px;
   display: grid;
   row-gap: 2px;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(4, 1fr);
   place-items: center;
-  
-  
+
   justify-content: space-around;
 }
 .imgdiv img {
@@ -97,15 +92,16 @@
   border-radius: 20px;
 }
 
-@media screen and (max-width:768px){
-  .titlebutton{flex-direction: column;
+@media screen and (max-width: 768px) {
+  .titlebutton {
+    flex-direction: column;
   }
-  .imgDiv{
+  .imgDiv {
     flex-direction: column;
     text-align: center;
   }
-  .imgdiv{
-    display:flex;
+  .imgdiv {
+    display: flex;
     flex-direction: column;
   }
   .imgdiv img {
@@ -113,13 +109,10 @@
     height: 400px;
     cursor: pointer;
     border-radius: 20px;
-    
   }
-  
-  
 }
-@media screen and (max-width:568px){
-  .imgDiv img{
+@media screen and (max-width: 568px) {
+  .imgDiv img {
     width: fit-content;
   }
   .imgdiv {
