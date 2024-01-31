@@ -1,8 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 import { useState } from "react";
-// import 'bootstrap/dist/css/bootstrap.css';
-import Dropdown from "react-bootstrap/Dropdown";
+
 import { useNavigate, Link } from "react-router-dom";
 
 const Navbar = () => {

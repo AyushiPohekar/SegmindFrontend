@@ -3,7 +3,7 @@ import "./App.css";
 import ModelsPage from "./Components/ModelsPage/ModelsPage";
 
 import Navbar from "./CommonComponents/Navbar/Navbar";
-import Aimodels from "./Components/Aimodels/Aimodels";
+
 import Footer from "./CommonComponents/Navbar/Footer/Footer";
 import TryModels from "./Components/TryModels/TryModels";
 import ApiKey from "./Components/Console/ApiKey";
@@ -39,7 +39,7 @@ function App() {
      
       <Route path="/models" element={<TryModels />} />
        
-      <Route path="/models/:name" element={<Aimodels />} />
+   
       <Route path='/console/key' element={<ApiKey/>}/>
       <Route path='/console/usage' element={<Usage/>}/>
       <Route path='/console/billing' element={<Billing/>}/>

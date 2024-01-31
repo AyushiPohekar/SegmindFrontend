@@ -1,16 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import LoadingSmall from "./LoadingSmall";
+import "../TryModels/TryModels.css"
 
 const FilterPage = () => {
-  const ControlnetsArray = ["controlnet-openpose"];
   const location = useLocation();
-  const [query, setQuery] = useState("");
+
   const navigate = useNavigate();
   const [models, setModels] = useState(location.state.models);
   const [filterdata, setFilterdata] = useState([]);
-  const [activeButton, setActiveButton] = useState("");
-
+  const [activeButton, setActiveButton] = useState(location.state.name);
+  const [loading, setLoading] = useState(true);
+  console.log(filterdata);
   function getDetails(modelSlug) {
     return axios
       .get(`http://localhost:8000/wrapper/findOneModel?name=${modelSlug}`)
@@ -27,6 +29,7 @@ const FilterPage = () => {
 
     for (const model of models) {
       try {
+        setLoading(true);
         const details = await getDetails(model.slug);
 
         model.details = details.model;
@@ -37,10 +40,12 @@ const FilterPage = () => {
         ) {
           filteredModels.push(model);
         }
+        setLoading(false);
       } catch (error) {
         console.error(
           `Error fetching details for model ${model.slug}: ${error}`
         );
+        setLoading(false);
       }
     }
 
@@ -48,13 +53,22 @@ const FilterPage = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    if (
+      location.state.desiredType == "textToImage" ||
+      location.state.desiredType == "imageToImage"
+    ) {
+      fetchData();
+    } else if (location.state.desiredType == "UtilityFunctions") {
+      setFilterdata(location.state.models?.slice(-5));
+    } else if (location.state.desiredType == "Controlnets") {
+      const controlnetsModels = location.state.models?.slice(0, -5);
+      setFilterdata(controlnetsModels?.slice(-6));
+    }
   }, [location.state.desiredType]);
   const handleOnClick = (element) => {
     navigate(`/models/type`, { state: { elemert: element } });
   };
   const decideType = (desiredType, name) => {
-    console.log(name)
     navigate(`/${desiredType}`, {
       state: { models: models, desiredType: desiredType },
     });
@@ -62,7 +76,7 @@ const FilterPage = () => {
   };
   return (
     <>
-      <div className="container">
+      <div className="container2">
         <div className="titleContent">
           <h1>Models</h1>
           <p>
@@ -91,7 +105,9 @@ const FilterPage = () => {
                 className={`filterbtns ${
                   activeButton === "UtilityFunctions" ? "active" : ""
                 }`}
-                onClick={() => decideType("imageToImage", "UtilityFunctions")}
+                onClick={() =>
+                  decideType("UtilityFunctions", "UtilityFunctions")
+                }
               >
                 Utility Functions
               </button>
@@ -99,47 +115,36 @@ const FilterPage = () => {
                 className={`filterbtns ${
                   activeButton === "Controlnets" ? "active" : ""
                 }`}
-                onClick={() => decideType("imageToImage", "Controlnets")}
+                onClick={() => decideType("Controlnets", "Controlnets")}
               >
                 Controlnets
               </button>
             </div>
-            <div>
-              <input
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Controllenet"
-                className="input"
-                style={{ marginRight: "30px", width: "230px" }}
-              />
+          </div>
+        </div>
+        {loading ? (
+          <div className="loadingDiv">
+            <LoadingSmall loading={loading} />
+          </div>
+        ) : (
+          <>
+            {" "}
+            <div style={{ marginTop: "20px" }}>
+              <div className="imgdiv">
+                {filterdata.map((element) => {
+                  return (
+                    <div style={{ marginTop: "15px" }}>
+                      <img
+                        src={element.default_image_output}
+                        onClick={() => handleOnClick(element)}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div style={{ marginTop: "20px" }}>
-          <div className="imgdiv">
-            {filterdata
-
-              .filter((eq) => {
-                if (query === "") {
-                  return eq;
-                } else if (
-                  eq.title.toLowerCase().includes(query.toLowerCase())
-                ) {
-                  return eq;
-                }
-              })
-              .map((element) => {
-                return (
-                  <div style={{ marginTop: "15px" }}>
-                    <img
-                      src={element.default_image_output}
-                      onClick={() => handleOnClick(element)}
-                    />
-                  </div>
-                );
-              })}
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </>
   );

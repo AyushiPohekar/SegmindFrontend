@@ -7,7 +7,7 @@ import "./Aimodels.css";
 
 const TexttoImage = () => {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const handleBackButton = (event) => {
       event.preventDefault();
@@ -89,6 +89,7 @@ const TexttoImage = () => {
     console.log(data);
 
     try {
+      setLoading(true);
       const response = await axios.post(url, data, {
         headers: {
           "x-api-key": api_key,
@@ -101,8 +102,10 @@ const TexttoImage = () => {
       const imageDataUrl = URL.createObjectURL(imageBlob);
 
       setImage(imageDataUrl);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching image:", error);
+      setLoading(false);
     }
   };
 
@@ -253,18 +256,25 @@ const TexttoImage = () => {
                 </div>
               </>
             )}
-            <button onClick={() => fetchData()} className="genratebtn">
-              Generate
-            </button>
+            {loading ? (
+              <button onClick={() => fetchData()} className="genratebtn">
+                Loading...
+              </button>
+            ) : (
+              <button onClick={() => fetchData()} className="genratebtn">
+                Generate
+              </button>
+            )}
           </div>
         </div>
         <div className="right">
           <img src={image} />
         </div>
       </div>
-     <div>
-      
-     </div>
+      <div className="downDiv">
+        <div className="DownDivleft">x</div>
+        <div className="DownDivRight">y</div>
+      </div>
     </div>
   );
 };
