@@ -84,7 +84,7 @@ const FilterPage = () => {
             application.
           </p>
           <div className="titlebutton">
-            <div>
+            <div className="titlebtninnerdiv">
               <button
                 className={`filterbtns ${
                   activeButton === "textToImage" ? "active" : ""

@@ -8,12 +8,25 @@
 
 }
 .titlebutton{
+
   display: flex;
   justify-content: space-between;
 }
-.titlebutton button:hover{
+.titlebtninnerdiv{
+  display: flex;
+  gap: 0.5rem;
+}
+.filterbtns{
+  border:1px solid rgb(25, 118, 210);
+  color: rgb(25, 118, 210);
   background-color: white;
-  color: purple;
+  border-radius: 16px;
+  padding: 0.5rem 1rem;
+}
+.active{
+  color: white;
+  background-color: rgb(25, 118, 210);
+  padding: 0.5rem 1rem;
 }
 .input{
   border: 1px solid rgb(95, 93, 93);
