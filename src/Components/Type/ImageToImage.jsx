@@ -5,24 +5,8 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import axios from "axios";
 import "./Aimodels.css";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
-
-const getBase64 = (img, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-};
-const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
-};
+import { message, Upload, Button } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 const ImageToImage = () => {
   const navigate = useNavigate();
@@ -41,7 +25,7 @@ const ImageToImage = () => {
   }, [navigate]);
   const location = useLocation();
   const model = location?.state?.details?.model;
-
+  console.log(model);
   const [advanced, setAdvancedtrue] = useState(false);
   const [originalimg, setoriginalimg] = useState(
     model?.default_image_output || ""
@@ -49,7 +33,9 @@ const ImageToImage = () => {
   const [prompt, setPrompt] = useState(
     model?.parameters?.prompt?.displayValue || ""
   );
-  const [seed, setSeed] = useState(parseFloat(model?.parameters?.seed?.displayValue) || 0);
+  const [seed, setSeed] = useState(
+    parseFloat(model?.parameters?.seed?.displayValue) || 0
+  );
   const [negative_prompt, setnegative_prompt] = useState(
     model?.parameters?.negative_prompt?.displayValue || ""
   );
@@ -74,6 +60,9 @@ const ImageToImage = () => {
 
   const [control_start, setcontrol_start] = useState(
     parseFloat(model?.parameters?.control_start?.displayValue) || -1
+  );
+  const [strength, setstrength] = useState(
+    parseFloat(model?.parameters?.strength?.displayValue) || -1
   );
   const [image, setimage] = useState(null);
 
@@ -107,6 +96,9 @@ const ImageToImage = () => {
       case "control_end":
         setcontrol_end(value);
         break;
+      case "strength":
+        setstrength(value);
+        break;
       default:
         break;
     }
@@ -114,21 +106,36 @@ const ImageToImage = () => {
 
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
-  const handleChange = (info) => {
-    if (info.file.status === "uploading") {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === "done") {
-    
-      getBase64(info.file.originFileObj, (url) => {
-        setLoading(false);
-        setImageUrl(url);
 
-        setimage(info.file.originFileObj);
-      });
+  const [base64File, setBase64File] = useState(null);
+  const beforeUpload = (file) => {
+    const isImage = file.type.startsWith("image/");
+    if (!isImage) {
+      message.error("You can only upload image files!");
+    }
+    return isImage;
+  };
+  const handleChange = async (info) => {
+    if (info.file.status === "done") {
+      // File has been uploaded
+      const base64String = await convertFileToBase64(info.file.originFileObj);
+      setBase64File(base64String);
     }
   };
+  const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64String = reader.result.split(",")[1];
+        resolve(base64String);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
   const uploadButton = (
     <button
       style={{
@@ -154,11 +161,10 @@ const ImageToImage = () => {
     scheduler,
     num_inference_steps,
     seed,
-    
+
     base64: false,
     samples: 1,
-    image,
-   
+    base64File,
   };
 
   if (model?.parameters?.control_scale) {
@@ -194,6 +200,12 @@ const ImageToImage = () => {
       controlnet_scale,
     };
   }
+  if (model?.parameters?.strength) {
+    modifiedData = {
+      ...modifiedData,
+      strength,
+    };
+  }
 
   const fetchData = async () => {
     let url;
@@ -221,31 +233,33 @@ const ImageToImage = () => {
 
   return (
     <div>
+      
       <div className="ComponentWrapper">
         <div className="left">
           <div className="promtdiv">
             <div className="imgtoimgdiv">
               <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
                 beforeUpload={beforeUpload}
                 onChange={handleChange}
+                showUploadList={false}
+                customRequest={({ onSuccess, onError, file }) => {
+                  setTimeout(() => {
+                    onSuccess();
+                  }, 0);
+                }}
               >
-                {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    alt="avatar"
-                    style={{
-                      width: "100%",
-                    }}
-                  />
-                ) : (
-                  uploadButton
-                )}
+                <Button icon={<UploadOutlined />}>Upload Image</Button>
               </Upload>
+              {base64File && (
+                <div>
+                  <p>Base64 Encoded Image:</p>
+                  <img
+                    src={`data:image/png;base64,${base64File}`}
+                    alt="Uploaded"
+                    style={{ maxWidth: "100%" }}
+                  />
+                </div>
+              )}
             </div>
             <h3>Prompt</h3>
             <textarea
@@ -503,7 +517,7 @@ const ImageToImage = () => {
                     </div>
                   </>
                 )}
-                {controlnet_scale> -1 && (
+                {controlnet_scale > -1 && (
                   <>
                     <div className="innerdiv">
                       <h3>Control Guidance end</h3>
@@ -519,7 +533,9 @@ const ImageToImage = () => {
                               })
                             }
                             value={
-                              typeof controlnet_scale === "number" ? controlnet_scale : 0
+                              typeof controlnet_scale === "number"
+                                ? controlnet_scale
+                                : 0
                             }
                           />
                         </Col>
@@ -530,8 +546,42 @@ const ImageToImage = () => {
                             style={{ margin: "0 16px" }}
                             name="controlnet_scale"
                             value={
-                              typeof controlnet_scale === "number" ? controlnet_scale : 0
+                              typeof controlnet_scale === "number"
+                                ? controlnet_scale
+                                : 0
                             }
+                            onChange={handleInputChange}
+                          />
+                        </Col>
+                      </Row>
+                    </div>
+                  </>
+                )}
+                {strength > -1 && (
+                  <>
+                    <div className="innerdiv">
+                      <h3>Strength</h3>
+                      <Row>
+                        <Col span={12}>
+                          <Slider
+                            min={0}
+                            max={1}
+                            step={0.01}
+                            onChange={(value) =>
+                              handleInputChange({
+                                target: { name: "strength", value },
+                              })
+                            }
+                            value={typeof strength === "number" ? strength : 0}
+                          />
+                        </Col>
+                        <Col span={4}>
+                          <InputNumber
+                            min={0}
+                            max={1}
+                            style={{ margin: "0 16px" }}
+                            name="strength"
+                            value={typeof strength === "number" ? strength : 0}
                             onChange={handleInputChange}
                           />
                         </Col>

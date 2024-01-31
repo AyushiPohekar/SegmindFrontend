@@ -116,7 +116,7 @@ const TryModels = () => {
               className={`filterbtns ${
                 activeButton === " UtilityFunctions" ? "active" : ""
               }`}
-              onClick={() => decideType("imageToImage", "UtilityFunctions")}
+              onClick={() => decideType("UtilityFunctions", "UtilityFunctions")}
             >
               Utility Functions
             </button>
@@ -124,7 +124,7 @@ const TryModels = () => {
               className={`filterbtns ${
                 activeButton === "Controlnets" ? "active" : ""
               }`}
-              onClick={() => decideType("imageToImage", "Controlnets")}
+              onClick={() => decideType("Controlnets", "Controlnets")}
             >
               Controlnets
             </button>

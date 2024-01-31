@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const FilterPage = () => {
-  
   const location = useLocation();
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
@@ -48,13 +47,22 @@ const FilterPage = () => {
   };
 
   useEffect(() => {
-    fetchData();
+     if(location.state.desiredType=="textToImage"||location.state.desiredType=="imageToImage"){
+      fetchData()
+     }
+     else if(location.state.desiredType=="UtilityFunctions"){
+      setFilterdata(location.state.models.slice(-5))
+     }
+     else if(location.state.desiredType=="Controlnets"){
+      const controlnetsModels = location.state.models.slice(0, -5);
+      setFilterdata(controlnetsModels.slice(-6))
+     }
+    
   }, [location.state.desiredType]);
   const handleOnClick = (element) => {
     navigate(`/models/type`, { state: { elemert: element } });
   };
   const decideType = (desiredType, name) => {
-    console.log(name)
     navigate(`/${desiredType}`, {
       state: { models: models, desiredType: desiredType },
     });
@@ -91,7 +99,9 @@ const FilterPage = () => {
                 className={`filterbtns ${
                   activeButton === "UtilityFunctions" ? "active" : ""
                 }`}
-                onClick={() => decideType("imageToImage", "UtilityFunctions")}
+                onClick={() =>
+                  decideType("UtilityFunctions", "UtilityFunctions")
+                }
               >
                 Utility Functions
               </button>
@@ -99,7 +109,7 @@ const FilterPage = () => {
                 className={`filterbtns ${
                   activeButton === "Controlnets" ? "active" : ""
                 }`}
-                onClick={() => decideType("imageToImage", "Controlnets")}
+                onClick={() => decideType("Controlnets", "Controlnets")}
               >
                 Controlnets
               </button>
