@@ -22,7 +22,7 @@ const ModelsPage = () => {
       .then((res) => res);
   };
   useEffect(() => {
-    getData().then((data) => setData(data.data.models));
+    getData().then((data) => setData(data.data));
   });
 
   const handleOnClick = (element) => {

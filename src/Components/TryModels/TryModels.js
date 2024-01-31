@@ -14,16 +14,16 @@ const TryModels = () => {
   const getdata = async () => {
     try {
       const res = await axios.get(`http://localhost:8000/wrapper/findAllModel`);
-
-      setData(res.data.models);
-      setModels(res.data.models);
+   
+      setData(res.data);
+      setModels(res.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
   useEffect(() => {
     getdata();
-  }, []);
+  },[]);
 
   function getDetails(modelSlug) {
     return axios
@@ -36,27 +36,7 @@ const TryModels = () => {
         throw error;
       });
   }
-  const fetchData = async (desiredType) => {
-    const filteredModels = [];
-
-    for (const model of models) {
-      try {
-        const details = await getDetails(model.slug);
-
-        model.details = details.model;
-
-        if (model.details && model.details.type === desiredType) {
-          filteredModels.push(model);
-        }
-      } catch (error) {
-        console.error(
-          `Error fetching details for model ${model.slug}: ${error}`
-        );
-      }
-    }
-
-    setData(filteredModels);
-  };
+ 
 
   const handleOnClick = (element) => {
     navigate(`/models/type`, { state: { elemert: element } });
