@@ -4,8 +4,10 @@ import { Col, InputNumber, Row, Slider, Space } from "antd";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import axios from "axios";
 import "./Aimodels.css";
+import { useAuth } from "../Context/auth";
 
 const TexttoImage = () => {
+  const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -81,32 +83,37 @@ const TexttoImage = () => {
     samples: 1,
   };
   const fetchData = async () => {
-    let url;
-    const api_key = "SG_cdb02db099cb8b32";
-
-    url = `http://localhost:8000/wrapper/textToImage?name=${model?.slug}`;
-
-    console.log(data);
-
-    try {
-      setLoading(true);
-      const response = await axios.post(url, data, {
-        headers: {
-          "x-api-key": api_key,
-          "Content-Type": "application/json",
-        },
-        responseType: "arraybuffer",
-      });
-
-      const imageBlob = new Blob([response.data]);
-      const imageDataUrl = URL.createObjectURL(imageBlob);
-
-      setImage(imageDataUrl);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching image:", error);
-      setLoading(false);
+    if(!auth?.user){
+      navigate("/login")
+    }else{
+      let url;
+      const api_key = "SG_cdb02db099cb8b32";
+  
+      url = `http://localhost:8000/wrapper/textToImage?name=${model?.slug}`;
+  
+      console.log(data);
+  
+      try {
+        setLoading(true);
+        const response = await axios.post(url, data, {
+          headers: {
+            "x-api-key": api_key,
+            "Content-Type": "application/json",
+          },
+          responseType: "arraybuffer",
+        });
+  
+        const imageBlob = new Blob([response.data]);
+        const imageDataUrl = URL.createObjectURL(imageBlob);
+  
+        setImage(imageDataUrl);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching image:", error);
+        setLoading(false);
+      }
     }
+    
   };
 
   return (

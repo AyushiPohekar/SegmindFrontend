@@ -1,11 +1,42 @@
 import React, { useState } from "react";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useAuth } from "../Context/auth";
+
 const Login = () => {
   const navigate = useNavigate();
+  const [auth, setAuth] = useAuth();
   const [username, setusername] = useState("");
 
   const [password, setpassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    try {
+      const res = await axios.post(`http://localhost:8000/auth/signin`, {
+        username,
+        password,
+      });
+      if (res && res.status===200) {
+        toast.success("login successful");
+        console.log(res)
+        setAuth({
+          ...auth,
+          name: res.data.name,
+          token: res.data.token,
+        });
+        localStorage.setItem("auth", JSON.stringify(res));
+        navigate("/");
+      } else {
+        toast.error("login failed");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
   return (
     <div className="Login">
       <div className="loginw">
@@ -44,7 +75,9 @@ const Login = () => {
           <input
             type="text"
             placeholder="Enter your name"
-           className="signupinput"
+            className="signupinput"
+            value={username}
+            onChange={(e)=>setusername(e.target.value)}
           />
 
           <span>
@@ -55,6 +88,8 @@ const Login = () => {
             type="text"
             placeholder="Enter Password"
             className="signupinput"
+            value={password}
+            onChange={(e)=>setpassword(e.target.value)}
           />
         </div>
         <br />
@@ -80,6 +115,7 @@ const Login = () => {
             fontSize: "15px",
             cursor: "pointer",
           }}
+          onClick={()=>handleSubmit()}
         >
           Login
         </button>
