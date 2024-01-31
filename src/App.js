@@ -19,6 +19,8 @@ import Type from "./Components/Type/Type";
 import TexttoImage from "./Components/Type/TexttoImage";
 import ImageToImage from "./Components/Type/ImageToImage";
 import FilterPage from "./Components/FiltersPages/FilterPage";
+import Signup from "./Components/Login/Signup";
+import Login from "./Components/Login/Login";
 
 function App() {
   return (
@@ -47,6 +49,8 @@ function App() {
       <Route path='/console/hub' element={<TrainingHub/>}/>
       <Route path='/console/modelhub' element={<ModelHub/>}/>
       <Route path='/console/referals' element={<Referalss/>}/>
+      <Route path='/signup' element={<Signup/>}/>
+      <Route path='/login' element={<Login/>}/>
 
     </Routes>
     <Footer/>
