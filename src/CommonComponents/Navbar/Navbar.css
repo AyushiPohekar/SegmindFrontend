@@ -13,6 +13,7 @@
     background-color: rgb(238, 233, 238);
     font-size: 12px;
     overflow: hidden;
+    position: relative;
 }
 .Navbardiv2{
     display: flex;
@@ -46,6 +47,19 @@ h1{
     
    
 }
+.namediv{
+    border: 1px solid grey;
+    padding: 0.2rem 1rem;
+    border-radius: 9999px;
+ 
+   
+}
+.namediv span{
+margin-top: 20px;
+   
+}
+
+
 @media  screen and (max-width:768px) {
     .NavbarDiv{display: block;position: sticky;
     width: 200px;}

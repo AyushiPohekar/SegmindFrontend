@@ -23,13 +23,15 @@ import Signup from "./Components/Login/Signup";
 import Login from "./Components/Login/Login";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbartwo from "./CommonComponents/Navbartwo/Navbartwo";
 
 
 function App() {
   return (
     
     <>
-    <Navbar />
+    <Navbartwo/>
+    {/* <Navbar /> */}
 
     <Routes>
       <Route path="/" element={<ModelsPage />} />
