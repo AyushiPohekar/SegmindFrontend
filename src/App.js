@@ -21,6 +21,9 @@ import ImageToImage from "./Components/Type/ImageToImage";
 import FilterPage from "./Components/FiltersPages/FilterPage";
 import Signup from "./Components/Login/Signup";
 import Login from "./Components/Login/Login";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
@@ -54,6 +57,7 @@ function App() {
 
     </Routes>
     <Footer/>
+    <ToastContainer />
   </>
     
     

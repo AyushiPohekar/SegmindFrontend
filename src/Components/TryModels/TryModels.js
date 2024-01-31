@@ -89,7 +89,7 @@ const TryModels = () => {
               }`}
               onClick={() => decideType("imageToImage", "imageToImage")}
             >
-              Image to Image to
+              Image to Image 
             </button>
             <button
               className={`filterbtns ${

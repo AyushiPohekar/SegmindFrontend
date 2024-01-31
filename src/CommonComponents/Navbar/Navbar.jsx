@@ -21,7 +21,7 @@ const Navbar = () => {
         <h1 onClick={() => navigate("/models")}>Blog</h1>
 
         
-        <h1 onClick={handlebtn} style={{marginRight:"35px"}} > G Login </h1>
+        <h1 style={{marginRight:"35px"}}  onClick={() => navigate("/login")}>  Login </h1>
         <br />
 
         <div className="dropdown" onClick={handlebtn}>
