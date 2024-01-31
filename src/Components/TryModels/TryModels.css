@@ -99,6 +99,9 @@
   background-color: rgb(25, 118, 210) ;
   color: white;
 }
+.loadingDiv{
+ height: max-content;
+}
 @media screen and (max-width: 768px) {
   .imgDiv {
     display: block;
