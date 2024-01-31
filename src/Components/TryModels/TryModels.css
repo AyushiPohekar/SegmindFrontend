@@ -29,12 +29,15 @@
   padding: 0.5rem 1rem;
 }
 .input{
-  border: 1px solid rgb(95, 93, 93);
-  border-radius: 15px;
+  /* border: 1px solid rgb(95, 93, 93); */
+  /* border-radius: 15px; */
   height: 30px;
   margin-right: 40px;
- 
-
+  border-radius: 1.25rem;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  box-shadow: inset 0 4px 4px 0 rgba(0,0,0,.25);
+ padding: 0.3rem;
 }
 .imgDiv{
   display: flex;
