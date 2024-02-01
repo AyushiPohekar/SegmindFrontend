@@ -104,7 +104,7 @@ const Signup = () => {
             <strong>Password</strong>
           </span>
           <input
-            type="text"
+            type="password"
             placeholder="Enter Password"
             className="signupinput"
             value={password}
