@@ -18,7 +18,7 @@ const ModelsPage = () => {
 
   const getData = async () => {
     return await axios
-      .get("http://localhost:8000/wrapper/findAllModel")
+      .get("https://wide-eyed-wasp-gloves.cyclic.app/wrapper/findAllModel")
       .then((res) => res);
   };
   useEffect(() => {
@@ -66,7 +66,7 @@ const ModelsPage = () => {
         </div>
         {/* changemade */}
         <div className="imgdiv">
-          {data.slice(0, 4).map((element, index) => (
+          {data?.slice(0, 4).map((element, index) => (
             <>
             <div key={index} className="modelImage">
               <img
