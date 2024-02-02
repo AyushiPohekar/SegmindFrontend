@@ -14,7 +14,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     try {
-      const res = await axios.post(`http://localhost:8000/auth/signin`, {
+      const res = await axios.post(`https://wide-eyed-wasp-gloves.cyclic.app/auth/signin`, {
         username,
         password,
       });
@@ -85,7 +85,7 @@ const Login = () => {
           </span>
 
           <input
-            type="text"
+            type="password"
             placeholder="Enter Password"
             className="signupinput"
             value={password}

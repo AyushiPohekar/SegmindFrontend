@@ -18,7 +18,7 @@ const ModelsPage = () => {
 
   const getData = async () => {
     return await axios
-      .get("http://localhost:8000/wrapper/findAllModel")
+      .get("https://wide-eyed-wasp-gloves.cyclic.app/wrapper/findAllModel")
       .then((res) => res);
   };
   useEffect(() => {
@@ -66,14 +66,21 @@ const ModelsPage = () => {
         </div>
         {/* changemade */}
         <div className="imgdiv">
-          {data.slice(0, 4).map((element, index) => (
+          {data?.slice(0, 4).map((element, index) => (
+            <>
             <div key={index} className="modelImage">
               <img
                 src={element.default_image_output}
                 alt={`img${index + 1}`}
                 onClick={() => handleOnClick(element)}
               />
+              {/* <div className="titlrimgdiv">
+              <p>{element.title}</p>
+              </div> */}
+            
             </div>
+           
+            </>
           ))}
           {/* <div>
           <img src='https://www.segmind.com/_next/image?url=https%3A%2F%2Fwww.segmind.com%2Fsd-img2img.jpeg&w=1080&q=75'/>

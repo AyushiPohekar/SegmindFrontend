@@ -7,9 +7,11 @@ import "./Aimodels.css";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { message, Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { useAuth } from "../Context/auth";
 
 const ImageToImage = () => {
   const navigate = useNavigate();
+  const [auth, setAuth] = useAuth();
 
   useEffect(() => {
     const handleBackButton = (event) => {
@@ -208,27 +210,36 @@ const ImageToImage = () => {
   }
 
   const fetchData = async () => {
-    let url;
-    const api_key = "SG_cdb02db099cb8b32";
-
-    url = `http://localhost:8000/wrapper/imageToImage?name=${model?.slug}`;
-
-    try {
-      const response = await axios.post(url, modifiedData, {
-        headers: {
-          "x-api-key": api_key,
-          "Content-Type": "application/json",
-        },
-        responseType: "arraybuffer",
-      });
-
-      const imageBlob = new Blob([response.data]);
-      const imageDataUrl = URL.createObjectURL(imageBlob);
-
-      setoriginalimg(imageDataUrl);
-    } catch (error) {
-      console.error("Error fetching image:", error);
+    if(!auth?.name){
+      navigate("/login")
     }
+    else{
+      let url;
+      const api_key = "SG_cdb02db099cb8b32";
+  
+      url = `https://wide-eyed-wasp-gloves.cyclic.app/wrapper/imageToImage?name=${model?.slug}`;
+  
+      try {
+        setLoading(true);
+        const response = await axios.post(url, modifiedData, {
+          headers: {
+            "x-api-key": api_key,
+            "Content-Type": "application/json",
+          },
+          responseType: "arraybuffer",
+        });
+  
+        const imageBlob = new Blob([response.data]);
+        const imageDataUrl = URL.createObjectURL(imageBlob);
+  
+        setoriginalimg(imageDataUrl);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching image:", error);
+        setLoading(false);
+      }
+    }
+   
   };
 
   return (
@@ -252,7 +263,6 @@ const ImageToImage = () => {
               </Upload>
               {base64File && (
                 <div>
-                  <p>Base64 Encoded Image:</p>
                   <img
                     src={`data:image/png;base64,${base64File}`}
                     alt="Uploaded"
@@ -591,9 +601,15 @@ const ImageToImage = () => {
                 )}
               </>
             )}
-            <button className="genratebtn" onClick={() => fetchData()}>
-              Generate
-            </button>
+              {loading ? (
+              <button onClick={() => fetchData()} className="genratebtn">
+                Loading...
+              </button>
+            ) : (
+              <button onClick={() => fetchData()} className="genratebtn">
+                Generate
+              </button>
+            )}
           </div>
         </div>
         <div className="right">
