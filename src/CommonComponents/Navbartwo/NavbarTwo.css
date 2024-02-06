@@ -91,14 +91,27 @@
 }
 
 /* Media Query for responsiveness */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
+  .app2{
+    padding: 3rem;
+  }
+  
+  
   .navbar {
     flex-direction: column;
     align-items: center;
+    width: 100%;
+  
+  }
+  .logo{
+    font-size: 2.5rem;
   }
 
   .nav-buttons {
     margin-top: 10px;
+  }
+  .nav-button{
+    font-size: 2rem;
   }
 
   .dropdown,

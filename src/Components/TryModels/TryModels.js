@@ -108,7 +108,7 @@ const TryModels = () => {
               Controlnets
             </button>
           </div>
-          <div>
+          <div className="titlesearchdiv">
             <input
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Controllenet"
@@ -118,7 +118,7 @@ const TryModels = () => {
           </div>
         </div>
       </div>
-      <div className="imgDiv">
+      <div className="imgDiv2">
         {data
           ?.slice(0, 2)
           .filter((eq) => {
@@ -140,7 +140,7 @@ const TryModels = () => {
           })}
       </div>
       <div style={{ marginTop: "20px" }}>
-        <div className="imgdiv">
+        <div className="imgdiv2">
           {data
             ?.slice(2)
             .filter((eq) => {
