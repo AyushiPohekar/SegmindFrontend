@@ -159,10 +159,10 @@ const TexttoImage = () => {
                     className="promptinput"
                   />
                 </div>
-                <div className="checkboxdiv">
+                {/* <div className="checkboxdiv">
                   <input type="checkbox" />
                   <span>Randomize seed</span>
-                </div>
+                </div> */}
 
                 <div className="innerdiv">
                   <h3>Negative Prompt</h3>

@@ -82,6 +82,9 @@ h3 {
 }
 
 @media screen and (max-width: 768px) {
+  .genratebtn{
+    font-size: 2rem;
+  }
   .promptinput{
     font-size: 2rem;
   }
@@ -133,6 +136,15 @@ h3 {
     font-size: 2rem;
   }
   .promptdiv textarea{
+    font-size: 2rem;
+  }
+  .imgtoimgdiv{
+
+    padding: 1rem;
+  }
+  
+  .uploadbtn{
+    height: auto;
     font-size: 2rem;
   }
 }

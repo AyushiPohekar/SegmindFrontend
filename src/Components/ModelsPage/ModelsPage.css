@@ -16,8 +16,8 @@
   gap: 1rem;
   /* margin-left: 60px;
   margin-right: 60px; */
- align-items: center;
- justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 .titlrimgdiv {
   position: absolute;
@@ -166,9 +166,8 @@
     justify-content: center;
     margin: 80px;
   }
-  .HomeContent p{
- 
-    font-size: 1.5rem!important;
+  .HomeContent p {
+    font-size: 2rem !important;
   }
 
   .HomeContent2 img {
@@ -183,25 +182,21 @@
   .cardDiv2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
-  .imgdiv{
+  .imgdiv {
     display: grid;
     width: auto;
-    grid-template-columns: repeat(2,1fr);
-
-
-
-
-
+    grid-template-columns: repeat(2, 1fr);
   }
-  .imgdiv img{
+  .imgdiv img {
     width: 600px;
   }
-  .card{
-    width: 95%!important;
-    height: auto;
-   padding: 2rem 3rem;
-   text-align: center;
+  .card {
+    width: 85% !important;
+    height: max-content !important;
+    padding: 2rem 3rem;
+    text-align: center;
   }
   /* .card h1{
     font-size: 4rem;
@@ -212,9 +207,11 @@
   .imgTitle p{
     font-size: 1.5rem!important;
   } */
-  .seeallmodels{
-   
+  .seeallmodels {
     padding: 1rem;
+    font-size: 1.5rem;
+  }
+  .AboutText p {
     font-size: 1.5rem;
   }
 }
@@ -234,19 +231,25 @@
     text-align: center;
     margin: 5px;
   }
-  .imgdiv{
+  .imgdiv {
     display: grid;
-    grid-template-columns: repeat(1,1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
-  .imgdiv img{
+  .imgdiv img {
     width: 95%;
     height: 700px;
   }
-  .cardDiv2{
-    grid-template-columns: repeat(1,1fr);
+  .cardDiv2 {
+    grid-template-columns: repeat(1, 1fr);
   }
-  .card{
+  .card {
     font-size: larger;
+  }
+  .card p {
+    margin: auto;
+    text-align: center;
+    width: 40%;
+    font-size: 2rem;
   }
 }
 @media screen and (max-width: 468px) {
@@ -269,7 +272,7 @@
   }
 }
 @media screen and (min-width: 969px) and (max-width: 1200px) {
-  .ModelsPageDiv{
+  .ModelsPageDiv {
     width: 100%;
   }
 }

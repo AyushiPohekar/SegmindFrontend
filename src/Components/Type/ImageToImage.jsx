@@ -258,8 +258,9 @@ const ImageToImage = () => {
                     onSuccess();
                   }, 0);
                 }}
+                className="uploaddiv"
               >
-                <Button icon={<UploadOutlined />}>Upload Image</Button>
+                <Button icon={<UploadOutlined />} className="uploadbtn">Upload Image</Button>
               </Upload>
               {base64File && (
                 <div>

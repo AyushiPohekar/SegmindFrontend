@@ -2,6 +2,7 @@
 .container{
     display: flex;
     font-family: 'Poppins', sans-serif;
+    width: 100vw;
 }
 .content{
     margin-top: 100px;
