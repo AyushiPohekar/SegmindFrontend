@@ -116,7 +116,7 @@ const ModelsPage = () => {
             Scalable, Affordable and easy to use APIs for Generative Models.
           </p>
         </div>
-        <div className="cardDiv" style={{ marginTop: "80px" }}>
+        <div className="cardDiv2" style={{ marginTop: "80px" }}>
           <div className="card">
             <IoIosFlash
               style={{ fontSize: "50px", marginTop: "12px", color: "gray" }}

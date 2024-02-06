@@ -35,7 +35,7 @@ const Footer = () => {
     </div>
     </div>
     </div>
-    <div style={{display:"flex",margin:"80px",paddingLeft:"30px",fontWeight:"lighter",fontSize:"20px"}}>
+    <div className='footerlast' style={{display:"flex",margin:"80px",paddingLeft:"30px",fontWeight:"lighter",fontSize:"20px"}}>
           <span>@Copyright 2023, All Rights Reserved</span>
           
             <span style={{marginLeft:"450px"}}>Privacy Policy</span>

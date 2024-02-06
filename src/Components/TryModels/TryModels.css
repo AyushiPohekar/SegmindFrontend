@@ -38,6 +38,7 @@
 }
 .imgDiv2 {
   display: flex;
+  
   flex-direction: row;
   row-gap: 10px;
   gap: 10px;
