@@ -38,6 +38,7 @@ const TryModels = () => {
   }
 
   const handleOnClick = (element) => {
+    console.log(element)
     navigate(`/models/type`, { state: { elemert: element } });
   };
 
