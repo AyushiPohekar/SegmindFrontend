@@ -31,58 +31,58 @@ h1 {
   margin-left: 28px;
   cursor: pointer;
 }
-@media screen and (max-width:1260px){
-   .footerDiv{
+@media screen and (max-width: 1260px) {
+  .footerDiv {
     margin-top: 10px;
     margin-left: 0px;
     margin-right: 0px;
-   }
-
+  }
 }
-@media screen and (max-width:968px){
-    .footerDiv{
-        margin-top: 10px;
-        margin-left: 0px;
-        margin-right: 0px;
-        font-size: 4px;
-        border-bottom:none ;
-       }
-       .footerList{font-size: 5px;
-        display: grid;
-    grid-template-columns: repeat(2,1fr);}
-        .span span{
-            display: block;
-            font-size: smaller;
-         
-        }
-        .footerlast{
-            font-size: 5px;
-        }
-        
-    
-}
-@media  screen and (max-width:768px) {
-    .footerDiv{
-        font-size: 2px;
-        border-bottom: none;
-    
-    }
-    .footer{
-        font-size: 5px;}
-    .footerList{font-size: 5px;
-    display: grid;
-grid-template-columns: repeat(3,1fr);}
-    .span span{
-        display: block;
-        font-size: smaller;
-     
-    }
-}  
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 968px) {
   .footerDiv {
-    font-size: 2px;
+    margin-top: 30px;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-size: 4px;
     border-bottom: none;
   }
+ 
+  /* .footerList {
+    font-size: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  } */
+  .span span {
+    display: block;
+    font-size: smaller;
+  }
+  /* .footerlast{
+            font-size: 5px;
+        } */
+}
+@media screen and (max-width: 768px) {
+  /* .footerDiv {
+    font-size: 2px;
+    border-bottom: none;
+  } */
+  /* .footer {
+    font-size: 5px;
+  } */
+  /* .footerList {
+    font-size: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  } */
+  .span span {
+    display: block;
+    font-size: smaller;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* .footerDiv {
+    font-size: 2px;
+    border-bottom: none;
+  } */
   /* .footer {
     font-size: 5px;
   } */

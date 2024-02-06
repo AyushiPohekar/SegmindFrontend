@@ -103,6 +103,7 @@ const ModelsPage = () => {
           textDecoration: "underLine",
           cursor: "pointer",
         }}
+        className="seeallmodels"
         onClick={() => navigate("/models")}
       >
         See All Models
@@ -165,6 +166,7 @@ const ModelsPage = () => {
         </div>
       </div>
     </div>
+  
   );
 };
 
