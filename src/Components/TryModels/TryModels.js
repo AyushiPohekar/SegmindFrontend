@@ -119,7 +119,7 @@ const TryModels = () => {
           </div>
         </div>
       </div>
-      <div className="imgDiv2">
+      <div className="imgDiv2 imgflex">
         {data
           ?.slice(0, 2)
           .filter((eq) => {
@@ -141,7 +141,7 @@ const TryModels = () => {
           })}
       </div>
       <div style={{ marginTop: "20px" }}>
-        <div className="imgdiv2">
+        <div className="imgdiv2 imgcolumn">
           {data
             ?.slice(2)
             .filter((eq) => {
@@ -153,7 +153,7 @@ const TryModels = () => {
             })
             .map((element) => {
               return (
-                <div style={{ marginTop: "15px" }}>
+                <div style={{ marginTop: "15px" }} >
                   <img
                     src={element.default_image_output}
                     onClick={() => handleOnClick(element)}
