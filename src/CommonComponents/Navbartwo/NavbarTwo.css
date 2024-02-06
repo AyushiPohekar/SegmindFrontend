@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+ 
 }
 
 .navbar {
@@ -20,6 +21,7 @@
   padding: 15px;
   color: grey;
   padding: 1rem 5rem;
+  z-index: 1000;
 }
 
 .logo {
