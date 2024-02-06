@@ -1,27 +1,33 @@
 .ModelsPageDiv {
   padding: 0 2rem;
+  width: 100vw;
 }
 .imgdiv {
-  width: 100%;
+  /* width: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   place-items: center;
   margin-left: 60px;
   margin-right: 60px;
-
+ gap: 1rem;
   justify-content: space-around;
-  position: relative;
+  position: relative; */
+  display: flex;
+  gap: 1rem;
+  /* margin-left: 60px;
+  margin-right: 60px; */
+ align-items: center;
+ justify-content: center;
 }
-.titlrimgdiv{
+.titlrimgdiv {
   position: absolute;
   bottom: 2%;
   color: white;
   z-index: 100;
   opacity: 0.4;
- background-color: red;
- 
+  background-color: red;
 }
-.titlrimgdiv p{
+.titlrimgdiv p {
   color: white;
   width: 100%;
 }
@@ -31,12 +37,12 @@
   cursor: pointer;
   border-radius: 20px;
 
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); 
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .imgdiv img:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 
   transform: translateY(-5px);
 }
@@ -81,7 +87,6 @@
   justify-content: space-around;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-  
 }
 .card {
   border: 1px solid black;
@@ -98,6 +103,7 @@
 .AboutText {
   margin-top: 100px;
   text-align: center;
+  width: 100%;
 }
 .AboutText span {
   font-size: 50px;
@@ -132,49 +138,71 @@
   border-radius: 15px;
   margin-top: 10px;
 }
-@media screen and (max-width:1200px){
-  .HomeContent2 img{
+@media screen and (max-width: 1200px) {
+  .HomeContent2 img {
     height: 500px;
     width: 350px;
   }
-  
 }
 @media screen and (max-width: 960px) {
+  .ModelsPageDiv {
+    width: 100%;
+    text-align: center;
+  }
   body {
     text-align: center;
   }
   .Home {
     display: flex;
     flex-direction: column;
-    
   }
   .HomeContent {
     width: 80%;
 
     display: flex;
     flex-direction: column;
-   
+
     align-items: center;
     justify-content: center;
     margin: 80px;
   }
-  
+  .HomeContent p{
+ 
+    font-size: 1.5rem!important;
+  }
+
   .HomeContent2 img {
-    margin-top: 20px;
+    margin: auto;
     width: 70%;
-    margin-left: 100px;
-   
+    height: 100%;
   }
   .image {
     margin: 5px;
     display: block;
   }
-  .cardDiv2{
+  .cardDiv2 {
     display: grid;
-    grid-template-columns: repeat(1,1fr);
-   
+    grid-template-columns: repeat(1, 1fr);
   }
-  
+  .card{
+    width: 95%!important;
+    height: auto;
+   padding: 2rem 3rem;
+  }
+  .card h1{
+    font-size: 2rem;
+  }
+  .card p{
+    font-size: 2rem;
+  }
+  .imgTitle p{
+    font-size: 1.5rem!important;
+  }
+  .seeallmodels{
+   
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
 }
 @media screen and (max-width: 768px) {
   .imgTitle {
@@ -191,11 +219,7 @@
   .imgTitle .imgdiv {
     text-align: center;
     margin: 5px;
-
-    
   }
-
-  
 }
 @media screen and (max-width: 468px) {
   .imgTitle {
@@ -214,5 +238,10 @@
   }
   .card {
     display: block;
+  }
+}
+@media screen and (min-width: 969px) and (max-width: 1200px) {
+  .ModelsPageDiv{
+    width: 100%;
   }
 }

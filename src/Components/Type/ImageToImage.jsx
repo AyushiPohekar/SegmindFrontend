@@ -243,7 +243,7 @@ const ImageToImage = () => {
   };
 
   return (
-    <div>
+    <div className="outerdivwrapper">
       
       <div className="ComponentWrapper">
         <div className="left">
