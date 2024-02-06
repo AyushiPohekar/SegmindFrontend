@@ -13,7 +13,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     try {
-      const res = await axios.post(`https://wide-eyed-wasp-gloves.cyclic.app/auth/signup`, {
+      const res = await axios.post(`http://localhost:8000/auth/signup`, {
         username,
         phonenumber,
         password,

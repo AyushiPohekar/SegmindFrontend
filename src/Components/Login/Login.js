@@ -14,7 +14,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     try {
-      const res = await axios.post(`https://wide-eyed-wasp-gloves.cyclic.app/auth/signin`, {
+      const res = await axios.post(`http://localhost:8000/auth/signin`, {
         username,
         password,
       });

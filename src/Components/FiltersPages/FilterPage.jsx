@@ -15,7 +15,7 @@ const FilterPage = () => {
   console.log(filterdata);
   function getDetails(modelSlug) {
     return axios
-      .get(`https://wide-eyed-wasp-gloves.cyclic.app/wrapper/findOneModel?name=${modelSlug}`)
+      .get(`http://localhost:8000/wrapper/findOneModel?name=${modelSlug}`)
       .then((response) => response.data)
       .catch((error) => {
         console.error(

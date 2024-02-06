@@ -217,7 +217,7 @@ const ImageToImage = () => {
       let url;
       const api_key = "SG_cdb02db099cb8b32";
   
-      url = `https://wide-eyed-wasp-gloves.cyclic.app/wrapper/imageToImage?name=${model?.slug}`;
+      url = `http://localhost:8000/wrapper/imageToImage?name=${model?.slug}`;
   
       try {
         setLoading(true);

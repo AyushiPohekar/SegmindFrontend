@@ -18,7 +18,7 @@ const ModelsPage = () => {
 
   const getData = async () => {
     return await axios
-      .get("https://wide-eyed-wasp-gloves.cyclic.app/wrapper/findAllModel")
+      .get("http://localhost:8000/wrapper/findAllModel")
       .then((res) => res);
   };
   useEffect(() => {

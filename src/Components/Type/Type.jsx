@@ -10,7 +10,7 @@ const Type = () => {
   const getdata = async () => {
     try {
       const res = await axios.get(
-        `https://wide-eyed-wasp-gloves.cyclic.app/wrapper/findOneModel?name=${location.state.elemert.slug}`
+        `http://localhost:8000/wrapper/findOneModel?name=${location.state.elemert.slug}`
       );
    
       setDetails(res.data);
