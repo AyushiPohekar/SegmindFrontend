@@ -82,6 +82,33 @@ h3 {
 }
 
 @media screen and (max-width: 768px) {
+  .promptinput{
+    font-size: 2rem;
+  }
+  .checkboxdiv{
+    font-size: 2rem;
+  }
+  
+  .ant-col{
+
+    width: 100%!important;
+    padding: 1rem!important;
+    font-size: 3rem!important;
+  }
+
+  .ant-input-number-input-wrap{
+
+
+    font-size: 2rem;
+  }
+
+  .ant-slider{
+    height: 20px!important;
+    font-size: 2rem!important;
+  }
+  .innerdiv{
+    font-size: 3rem;
+  }
   .ComponentWrapper {
     height: max-content;
     flex-direction: column;
